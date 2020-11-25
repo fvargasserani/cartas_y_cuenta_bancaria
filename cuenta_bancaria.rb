@@ -1,22 +1,18 @@
-class Cuenta_bancaria
+class CuentaBancaria
     attr_accessor :nombre_de_usuario, :numero_de_cuenta, :vip
-    def initialize(nombre_de_usuario, numero_de_cuenta = 0, vip = 0)
+    def initialize(nombre_de_usuario, numero_de_cuenta, vip = 0)
+        raise RangeError, 'La cuenta debe tener 8 digitos' if numero_de_cuenta.digits.count != 8 
+        raise ArgumentError, 'Debe ingresar 0 o 1' if (vip != 0 && vip != 1)
         @nombre_de_usuario = nombre_de_usuario
         @numero_de_cuenta = numero_de_cuenta
-        @vip = 0..1
+        @vip = vip
     end
 
-    def numero_de_cuenta(numero_de_cuenta, vip)
-        if vip == 1 && numero_de_cuenta.digits.count == 8
-            "1-#{numero_de_cuenta}"
-        elsif vip == 0 && numero_de_cuenta.digits.count == 8
-            "0-#{numero_de_cuenta}"
-        else
-           raise RangeError
-        end
+    def cuenta_final
+        "#{vip}-#{numero_de_cuenta}"
     end
 end
 
-a = Cuenta_bancaria.new('Francisca')
+a = CuentaBancaria.new('Francisca', 10003222, 1)
 
-puts a.numero_de_cuenta(100202932,1)
+puts a.cuenta_final
