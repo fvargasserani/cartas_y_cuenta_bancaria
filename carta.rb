@@ -1,15 +1,15 @@
 class Carta 
     attr_accessor :numero, :pinta
-    def initialize(numero = Random.rand(1..13), pinta = ['C', 'D', 'E', 'T'].sample)
+    def initialize(numero, pinta)
         @numero = numero
         @pinta = pinta
     end
-
-    def five_cards
-        Array.new(5,[@numero,@pinta]).sample
-    end
 end
 
-a = Carta.new
+a = []
+5.times do |i|
+    i = Carta.new(Random.rand(1..13), ['C', 'D', 'E', 'T'].sample)
+    a << i
+end
 
-print a.five_cards
+print a
